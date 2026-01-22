@@ -18,7 +18,7 @@ data "talos_machine_configuration" "controlplane" {
   machine_secrets    = talos_machine_secrets.machine_secrets.machine_secrets
   talos_version      = var.talos_version
   kubernetes_version = var.kubernetes_version
-  config_patches     = var.controlplane_config_patches
+  config_patches = var.allow_scheduling_on_controlplanes ? concat(var.controlplane_config_patches, [yamlencode({ cluster = { allowSchedulingOnControlPlanes = true } })]) : var.controlplane_config_patches
   docs               = false
   examples           = false
 }

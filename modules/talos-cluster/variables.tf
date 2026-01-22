@@ -87,3 +87,18 @@ variable "client_configuration_override" {
   default  = null
   nullable = true
 }
+
+variable "hybrid_controlplane_nodes" {
+  description = "List of control plane nodes that should be schedulable (no control-plane taint)"
+  type = list(object({
+    ip_address = string
+    name       = string
+  }))
+  default = []
+}
+
+variable "allow_scheduling_on_controlplanes" {
+  description = "Enable scheduling on control plane nodes (sets cluster.allowSchedulingOnControlPlanes=true)"
+  type        = bool
+  default     = false
+}
